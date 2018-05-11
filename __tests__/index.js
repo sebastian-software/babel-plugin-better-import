@@ -5,8 +5,6 @@ const createBabylonOptions = require('babylon-options')
 const plugin = require('../index')
 const babel = require('@babel/core')
 const dynamicSyntax = require('@babel/plugin-syntax-dynamic-import')
-const stage2 = require('@babel/preset-stage-2')
-const es2015 = require('@babel/preset-es2015')
 
 const babelOptions = {
   filename: 'currentFile.js',
@@ -50,20 +48,4 @@ pluginTester({
     },
     'existing chunkName': 'import(/* webpackChunkName: \'Bar\' */"./Foo")'
   }
-})
-
-// toggle from test.skip to test.only when working on the plugin using Wallaby
-test.skip('wallaby-live-coding', () => {
-  // const input = 'async ({ page }) => await import(`../components/${page}`);'
-  // const input = 'import("../../Foo.js")'
-  // const input = 'universal(props => import(`./footer/${props.experiment}`));'
-  const input = 'import(`./base/${page}/index`)'
-
-  const output = babel.transform(input, {
-    filename: 'currentFile.js',
-    plugins: [dynamicSyntax, plugin],
-    presets: [es2015, stage2]
-  })
-
-  expect(output.code).toBeDefined()
 })
