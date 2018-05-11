@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable filenames/match-exported */
 /* eslint-disable immutable/no-mutation */
+/* eslint-disable import/no-commonjs */
 "use-strict"
 
 const { addDefault } = require("@babel/helper-module-imports")
@@ -101,23 +102,25 @@ function existingMagicCommentChunkName(importArgNode) {
     const data = leadingComments
       .map(function process(comment, index) {
         if (comment.value.indexOf("webpackChunkName") !== -1) {
+          let parsed
           try {
-            const parsed = JSON5.parse(`{${  comment.value  }}`)
-            const value = parsed.webpackChunkName
-            if (value) {
-              // Cleanup comment from old chunk name
-              delete parsed.webpackChunkName
-              comment.value = JSON5.stringify(parsed).slice(1, -1)
-
-              // Remove empty comments
-              if (comment.value === "") {
-                leadingComments.splice(index, 1)
-              }
-
-              return value
-            }
+            parsed = JSON5.parse(`{${comment.value}}`)
           } catch (error) {
             return null
+          }
+
+          const value = parsed && parsed.webpackChunkName
+          if (value) {
+            // Cleanup comment from old chunk name
+            delete parsed.webpackChunkName
+            comment.value = JSON5.stringify(parsed).slice(1, -1)
+
+            // Remove empty comments
+            if (comment.value === "") {
+              leadingComments.splice(index, 1)
+            }
+
+            return value
           }
         }
 
