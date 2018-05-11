@@ -1,28 +1,37 @@
-module.exports = function(config, makeThennable) {
-  if (makeThennable === false) return config
+export default function(config, makeThennable) {
+  if (makeThennable === false) {
+    return config
+  }
 
   const load = config.load
-  config.then = function(cb) {
-    return load().then((res) => {
-      return cb && cb(res)
+
+  config.then = function(callback) {
+    return load().then((result) => {
+      return callback && callback(result)
     })
   }
-  config.catch = function(cb) {
-    return load().catch((e) => {
-      return cb && cb(e)
+
+  config.catch = function(callback) {
+    return load().catch((error) => {
+      return callback && callback(error)
     })
   }
+
   return config
 }
 
 let isSet = false
 
 function setHasPlugin() {
-  if (isSet) return
+  if (isSet) {
+    return
+  }
+
   let universal
   const isWebpack = typeof __webpack_require__ !== "undefined"
 
   try {
+    /* global __webpack_require__ */
     if (isWebpack) {
       const weakId = require.resolveWeak("react-universal-component")
       universal = __webpack_require__(weakId)
