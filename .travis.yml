@@ -4,9 +4,6 @@ node_js:
   - 8
   - 10
 
-script:
-  - node_modules/.bin/travis-github-status lint jest codeclimate
-
 notifications:
   email: false
   slack:

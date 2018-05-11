@@ -1,2 +1,10 @@
 extends:
   - readable
+
+rules:
+  max-params: off
+  prefer-arrow-callback: off
+
+  filenames/match-exported: off
+  immutable/no-mutation: off
+  import/no-commonjs: off

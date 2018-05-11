@@ -1,7 +1,3 @@
-/* eslint-disable prefer-arrow-callback */
-/* eslint-disable filenames/match-exported */
-/* eslint-disable immutable/no-mutation */
-/* eslint-disable import/no-commonjs */
 "use-strict"
 
 const { addDefault } = require("@babel/helper-module-imports")
@@ -49,7 +45,9 @@ function createTrimmedChunkName(types, importArgNode) {
       value: { raw: baseDir, cooked: baseDir }
     })
 
-    quasis = quasis.map((quasi, i) => (i > 0 ? prepareQuasi(quasi) : quasi))
+    quasis = quasis.map(function mapper(quasi, i) {
+      return i > 0 ? prepareQuasi(quasi) : quasi
+    })
 
     return Object.assign({}, importArgNode, {
       quasis
@@ -88,10 +86,9 @@ function getComponentId(types, importArgNode) {
   }
 
   return quasis.reduce((str, quasi, i) => {
-    const q = quasi.value.cooked
+    const value = quasi.value.cooked
     const id = expressions[i] && expressions[i].name
-    str += id ? `${q}\${${id}}` : q
-    return str
+    return str + (id ? `${value}\${${id}}` : value)
   }, "")
 }
 
