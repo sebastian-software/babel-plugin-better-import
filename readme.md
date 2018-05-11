@@ -14,6 +14,8 @@
 
 Makes `import()` widely useable. Automagically. Part of the Edge Platform.
 
+Ideally suited for combining Webpack 4s new [Mini CSS Extract Plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) with James Gillmores excellent [Universal React Component](https://github.com/faceyspacey/react-universal-component).
+
 
 ## Installation
 
@@ -43,10 +45,10 @@ const UniversalComponent = universal(import('./Foo.js'))
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import universal from 'react-universal-component'
-import universalImport from 'babel-plugin-better-import/universalImport.js'
+import betterImport from 'babel-plugin-better-import/betterImport.js'
 import path from 'path'
 
-const UniversalComponent = universal(universalImport({
+const UniversalComponent = universal(betterImport({
   chunkName: () => 'Foo',
   path: () => path.join(__dirname, './Foo.js'),
   resolve: () => require.resolveWeak('./Foo.js'),
@@ -67,10 +69,10 @@ const UniversalComponent = universal(props => import(`./${props.page}`))
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import universal from 'react-universal-component'
-import universalImport from 'babel-plugin-better-import/universalImport.js'
+import betterImport from 'babel-plugin-better-import/betterImport.js'
 import path from 'path'
 
-const UniversalComponent = universal(props => universalImport({
+const UniversalComponent = universal(props => betterImport({
   chunkName: props => props.page,
   path: props => path.join(__dirname, `./${props.page}`),
   resolve: props => require.resolveWeak(`./${props.page}`),
@@ -82,7 +84,7 @@ const UniversalComponent = universal(props => universalImport({
 
 It names all your chunks using *magic comments* 🔮 behind the scenes and is derived from the imported file. This works with both static and dynamic import paths, as you can see above.
 
-Otherwise, what it's doing is providing all the different types of requires/paths/imports/etc needed by tools like [react-universal-component](https://github.com/sebastian-software/react-universal-component) to universally render your component.
+Otherwise, what it's doing is providing all the different types of requires/paths/imports/etc needed by tools like [react-universal-component](https://github.com/faceyspacey/react-universal-component) to universally render your component.
 
 The targeted **use-case** for all this is dynamic imports where you can pass a `page` prop to the resulting component, thereby allowing you to create one `<UniversalComponent page={page} />` for a large number of your components. This is a major upgrade to the previous way of having to make a hash of a million async components in a wrapping component. You no longer have to think about *Universal Components* as anything different than your other components that use simple HoCs.
 
@@ -95,4 +97,5 @@ The targeted **use-case** for all this is dynamic imports where you can pass a `
 <img src="https://cdn.rawgit.com/sebastian-software/sebastian-software-brand/3d93746f/sebastiansoftware-en.svg" alt="Sebastian Software GmbH Logo" width="250" height="200"/>
 
 Copyright 2018<br/>[Sebastian Software GmbH](http://www.sebastian-software.de)
+<br/><br/>
 Copyright 2017-2018<br/>[James Gillmore](mailto:james@faceyspacey.com)
