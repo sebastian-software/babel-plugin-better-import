@@ -6,7 +6,7 @@ async ({ page }) => await import(\`../components/\${page}\`);
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 async ({
   page
@@ -23,7 +23,7 @@ import(\`../../base/\${page}\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"../../base/\${page}\\",
@@ -45,7 +45,7 @@ import(\`./\${page}\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"./\${page}\\",
@@ -67,7 +67,7 @@ import(\`./base/\${page}/nested/{$another}folder\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"./base/\${page}/nested/{$another}folder\\",
@@ -89,7 +89,7 @@ import(\`./base/\${page}/nested/folder\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"./base/\${page}/nested/folder\\",
@@ -111,7 +111,7 @@ import(\`./base/\${page}\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"./base/\${page}\\",
@@ -133,7 +133,7 @@ import(/* webpackChunkName: 'Bar' */\\"./Foo\\")
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"./Foo\\",
@@ -155,7 +155,7 @@ import(/* webpackPrefetch: true, webpackChunkName: 'Bar' */\\"./Foo\\")
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"./Foo\\",
@@ -179,7 +179,7 @@ import(/* webpackPrefetch: true */\\"./Foo\\")
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"./Foo\\",
@@ -203,7 +203,7 @@ const obj = {component:()=>import(\`../components/nestedComponent\`)}; ()=> obj.
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 const obj = {
   component: () => _betterImport({
     id: \\"../components/nestedComponent\\",
@@ -228,7 +228,7 @@ import(\`../components/nestedComponent\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"../components/nestedComponent\\",
@@ -250,7 +250,7 @@ import(\`../../base\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"../../base\\",
@@ -272,7 +272,7 @@ import(\`./base\`)
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"./base\\",
@@ -294,7 +294,7 @@ import(\\"./Foo.js\\")
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"./Foo.js\\",
@@ -316,7 +316,7 @@ import(\\"../../Foo\\")
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"../../Foo\\",
@@ -338,7 +338,7 @@ import(\\"./Foo\\")
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/betterImport\\";
 
 _betterImport({
   id: \\"./Foo\\",
