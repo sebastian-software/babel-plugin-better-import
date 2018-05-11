@@ -105,20 +105,20 @@ function existingMagicCommentChunkName(importArgNode) {
   return null
 }
 
-function idOption(t, importArgNode) {
-  const id = getComponentId(t, importArgNode)
-  return t.objectProperty(t.identifier("id"), t.stringLiteral(id))
+function idOption(types, importArgNode) {
+  const id = getComponentId(types, importArgNode)
+  return types.objectProperty(types.identifier("id"), types.stringLiteral(id))
 }
 
-function fileOption(t, p) {
-  return t.objectProperty(
-    t.identifier("file"),
-    t.stringLiteral(p.hub.file.opts.filename)
+function fileOption(types, path) {
+  return types.objectProperty(
+    types.identifier("file"),
+    types.stringLiteral(path.hub.file.opts.filename)
   )
 }
 
-function loadOption(t, loadTemplate, p, importArgNode) {
-  const argPath = getImportArgPath(p)
+function loadOption(types, loadTemplate, path, importArgNode) {
+  const argPath = getImportArgPath(path)
   const generatedChunkName = getMagicCommentChunkName(importArgNode)
   const existingChunkName = t.existingChunkName
   const chunkName = existingChunkName || generatedChunkName
@@ -136,35 +136,35 @@ function loadOption(t, loadTemplate, p, importArgNode) {
   return t.objectProperty(t.identifier("load"), load)
 }
 
-function pathOption(t, pathTemplate, p, importArgNode) {
+function pathOption(types, pathTemplate, path, importArgNode) {
   const path = pathTemplate({
-    PATH: getImport(p, IMPORT_PATH_DEFAULT),
+    PATH: getImport(path, IMPORT_PATH_DEFAULT),
     MODULE: importArgNode
   }).expression
 
-  return t.objectProperty(t.identifier("path"), path)
+  return types.objectProperty(types.identifier("path"), path)
 }
 
-function resolveOption(t, resolveTemplate, importArgNode) {
+function resolveOption(types, resolveTemplate, importArgNode) {
   const resolve = resolveTemplate({
     MODULE: importArgNode
   }).expression
 
-  return t.objectProperty(t.identifier("resolve"), resolve)
+  return types.objectProperty(types.identifier("resolve"), resolve)
 }
 
-function chunkNameOption(t, chunkNameTemplate, importArgNode) {
-  const existingChunkName = t.existingChunkName
-  const generatedChunk = createTrimmedChunkName(t, importArgNode)
+function chunkNameOption(types, chunkNameTemplate, importArgNode) {
+  const existingChunkName = types.existingChunkName
+  const generatedChunk = createTrimmedChunkName(types, importArgNode)
   const trimmedChunkName = existingChunkName ?
-    t.stringLiteral(existingChunkName) :
+    types.stringLiteral(existingChunkName) :
     generatedChunk
 
   const chunkName = chunkNameTemplate({
     MODULE: trimmedChunkName
   }).expression
 
-  return t.objectProperty(t.identifier("chunkName"), chunkName)
+  return types.objectProperty(types.identifier("chunkName"), chunkName)
 }
 
 function checkForNestedChunkName(node) {
