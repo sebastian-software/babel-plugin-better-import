@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-better-import",
-  "version": "0.0.0-development",
+  "version": "0.0.1",
   "description": "Babel plugin to transform import() into its Universal counterpart",
   "main": "index.js",
   "repository": {
@@ -15,12 +15,17 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "lint": "eslint --fix ./",
-    "format": "prettier --write '{src,__tests__,__test-helpers__}/**/*.js' && npm run lint",
+    "lint": "eslint .",
+    "fix": "eslint --fix .",
+    "format": "prettier --ignore-path .gitignore --write '**/*.js' && npm run fix",
     "precommit": "lint-staged && npm test",
-    "cm": "git-cz",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "release": "git push && release-it --github.release --npm.publish --non-interactive",
+    "release:minor": "git push && release-it --github.release --npm.publish --non-interactive --increment minor",
+    "release:major": "git push && release-it --github.release --npm.publish --non-interactive --increment major"
   },
+  "files": [
+    "*.js"
+  ],
   "dependencies": {
     "@babel/helper-module-imports": "^7.0.0-beta.46"
   },
