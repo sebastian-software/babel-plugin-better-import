@@ -29,15 +29,15 @@ function prepareChunkNamePath(path) {
   return path.replace(/\//g, "-")
 }
 
-function getImport(p, { id, source, nameHint }) {
-  if (!p.hub.file[id]) {
-    p.hub.file[id] = addDefault(p, source, { nameHint })
+function getImport(path, { id, source, nameHint }) {
+  if (!path.hub.file[id]) {
+    path.hub.file[id] = addDefault(path, source, { nameHint })
   }
 
-  return p.hub.file[id]
+  return path.hub.file[id]
 }
 
-function createTrimmedChunkName(t, importArgNode) {
+function createTrimmedChunkName(types, importArgNode) {
   if (importArgNode.quasis) {
     let quasis = importArgNode.quasis.slice(0)
     const baseDir = trimChunkNameBaseDir(quasis[0].value.cooked)
@@ -53,7 +53,7 @@ function createTrimmedChunkName(t, importArgNode) {
   }
 
   const moduleName = trimChunkNameBaseDir(importArgNode.value)
-  return t.stringLiteral(moduleName)
+  return types.stringLiteral(moduleName)
 }
 
 function prepareQuasi(quasi) {
@@ -74,7 +74,7 @@ function getMagicCommentChunkName(importArgNode) {
   return trimChunkNameBaseDir(chunkName)
 }
 
-function getComponentId(t, importArgNode) {
+function getComponentId(types, importArgNode) {
   const { quasis, expressions } = importArgNode
   if (!quasis) return importArgNode.value
 
@@ -98,7 +98,7 @@ function existingMagicCommentChunkName(importArgNode) {
         .split("webpackChunkName:")[1]
         .replace(/["']/g, "")
         .trim()
-    } catch (e) {
+    } catch (error) {
       return null
     }
   }
