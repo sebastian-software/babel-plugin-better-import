@@ -209,22 +209,14 @@ module.exports = function betterImportPlugin({ types: t, template }) {
           return
         }
 
-        const opts = this.opts.babelServer ?
-          [
-            idOption(t, importArgNode),
-            fileOption(t, p),
-            pathOption(t, pathTemplate, p, importArgNode),
-            resolveOption(t, resolveTemplate, importArgNode),
-            chunkNameOption(t, chunkNameTemplate, importArgNode)
-          ] :
-          [
-            idOption(t, importArgNode),
-            fileOption(t, p),
-            loadOption(t, loadTemplate, p, importArgNode), // only when not on a babel-server
-            pathOption(t, pathTemplate, p, importArgNode),
-            resolveOption(t, resolveTemplate, importArgNode),
-            chunkNameOption(t, chunkNameTemplate, importArgNode)
-          ]
+        const opts = [
+          idOption(t, importArgNode),
+          fileOption(t, p),
+          loadOption(t, loadTemplate, p, importArgNode), // only when not on a babel-server
+          pathOption(t, pathTemplate, p, importArgNode),
+          resolveOption(t, resolveTemplate, importArgNode),
+          chunkNameOption(t, chunkNameTemplate, importArgNode)
+        ]
 
         const options = t.objectExpression(opts)
 
