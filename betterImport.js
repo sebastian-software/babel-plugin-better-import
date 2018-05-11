@@ -1,4 +1,4 @@
-export default function(config, makeThennable) {
+export default function betterImport(config, makeThennable) {
   if (makeThennable === false) {
     return config
   }
@@ -23,6 +23,7 @@ export default function(config, makeThennable) {
 let isSet = false
 
 function setHasPlugin() {
+  /* global __webpack_require__ */
   if (isSet) {
     return
   }
@@ -31,7 +32,6 @@ function setHasPlugin() {
   const isWebpack = typeof __webpack_require__ !== "undefined"
 
   try {
-    /* global __webpack_require__ */
     if (isWebpack) {
       const weakId = require.resolveWeak("react-universal-component")
       universal = __webpack_require__(weakId)

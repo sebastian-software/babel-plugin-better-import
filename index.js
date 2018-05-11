@@ -1,11 +1,12 @@
+/* eslint-disable filenames/match-exported */
 "use-strict"
 
 const { addDefault } = require("@babel/helper-module-imports")
 
 const visited = Symbol("visited")
 
-const IMPORT_UNIVERSAL_DEFAULT = {
-  id: Symbol("universalImportId"),
+const IMPORT_BETTER_DEFAULT = {
+  id: Symbol("betterImportId"),
   source: "babel-plugin-better-import/universalImport",
   nameHint: "betterImport"
 }
@@ -193,7 +194,7 @@ module.exports = function betterImportPlugin({ types: t, template }) {
         if (!t.existingChunkName) {
           t.existingChunkName = checkForNestedChunkName(importArgNode)
         }
-        const universalImport = getImport(p, IMPORT_UNIVERSAL_DEFAULT)
+        const universalImport = getImport(p, IMPORT_BETTER_DEFAULT)
 
         // if being used in an await statement, return load() promise
         if (
