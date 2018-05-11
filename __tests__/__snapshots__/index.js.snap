@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`universal-import await import() should receive a thennable without calling .then: await import() should receive a thennable without calling .then 1`] = `
+exports[`better-import await import() should receive a thennable without calling .then: await import() should receive a thennable without calling .then 1`] = `
 "
 async ({ page }) => await import(\`../components/\${page}\`);
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
 async ({
   page
-}) => await _universalImport(() => import(
+}) => await _betterImport(() => import(
 /* webpackChunkName: 'components/[request]' */
 \`../components/\${page}\`), false);
 "
 `;
 
-exports[`universal-import babelServer: true: babelServer: true 1`] = `
+exports[`better-import babelServer: true: babelServer: true 1`] = `
 "
 import(\\"./Foo\\")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"./Foo\\",
   file: \\"currentFile.js\\",
   path: () => _path.join(__dirname, \\"./Foo\\"),
@@ -35,16 +35,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import disableWarnings: true: disableWarnings: true 1`] = `
+exports[`better-import disableWarnings: true: disableWarnings: true 1`] = `
 "
 import(\\"./Foo\\")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"./Foo\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -57,16 +57,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import dynamic import (string template + relative paths): dynamic import (string template + relative paths) 1`] = `
+exports[`better-import dynamic import (string template + relative paths): dynamic import (string template + relative paths) 1`] = `
 "
 import(\`../../base/\${page}\`)
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"../../base/\${page}\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -79,16 +79,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import dynamic import (string template - dynamic at 1st segment): dynamic import (string template - dynamic at 1st segment) 1`] = `
+exports[`better-import dynamic import (string template - dynamic at 1st segment): dynamic import (string template - dynamic at 1st segment) 1`] = `
 "
 import(\`./\${page}\`)
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"./\${page}\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -101,16 +101,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import dynamic import (string template with multiple nested folders): dynamic import (string template with multiple nested folders) 1`] = `
+exports[`better-import dynamic import (string template with multiple nested folders): dynamic import (string template with multiple nested folders) 1`] = `
 "
 import(\`./base/\${page}/nested/{$another}folder\`)
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"./base/\${page}/nested/{$another}folder\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -123,16 +123,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import dynamic import (string template with nested folder): dynamic import (string template with nested folder) 1`] = `
+exports[`better-import dynamic import (string template with nested folder): dynamic import (string template with nested folder) 1`] = `
 "
 import(\`./base/\${page}/nested/folder\`)
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"./base/\${page}/nested/folder\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -145,16 +145,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import dynamic import (string template): dynamic import (string template) 1`] = `
+exports[`better-import dynamic import (string template): dynamic import (string template) 1`] = `
 "
 import(\`./base/\${page}\`)
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"./base/\${page}\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -167,16 +167,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import existing chunkName: existing chunkName 1`] = `
+exports[`better-import existing chunkName: existing chunkName 1`] = `
 "
 import(/* webpackChunkName: 'Bar' */\\"./Foo\\")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"./Foo\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -189,16 +189,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import static import (import as function with relative paths + nested folder): static import (import as function with relative paths + nested folder) 1`] = `
+exports[`better-import static import (import as function with relative paths + nested folder): static import (import as function with relative paths + nested folder) 1`] = `
 "
 const obj = {component:()=>import(\`../components/nestedComponent\`)}; ()=> obj.component()
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 const obj = {
-  component: () => _universalImport({
+  component: () => _betterImport({
     id: \\"../components/nestedComponent\\",
     file: \\"currentFile.js\\",
     load: () => import(
@@ -214,16 +214,16 @@ const obj = {
 "
 `;
 
-exports[`universal-import static import (relative paths + nested folder): static import (relative paths + nested folder) 1`] = `
+exports[`better-import static import (relative paths + nested folder): static import (relative paths + nested folder) 1`] = `
 "
 import(\`../components/nestedComponent\`)
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"../components/nestedComponent\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -236,16 +236,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import static import (string template + relative paths): static import (string template + relative paths) 1`] = `
+exports[`better-import static import (string template + relative paths): static import (string template + relative paths) 1`] = `
 "
 import(\`../../base\`)
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"../../base\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -258,16 +258,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import static import (string template): static import (string template) 1`] = `
+exports[`better-import static import (string template): static import (string template) 1`] = `
 "
 import(\`./base\`)
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"./base\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -280,16 +280,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import static import (with file extension): static import (with file extension) 1`] = `
+exports[`better-import static import (with file extension): static import (with file extension) 1`] = `
 "
 import(\\"./Foo.js\\")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"./Foo.js\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -302,16 +302,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import static import (with relative paths): static import (with relative paths) 1`] = `
+exports[`better-import static import (with relative paths): static import (with relative paths) 1`] = `
 "
 import(\\"../../Foo\\")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"../../Foo\\",
   file: \\"currentFile.js\\",
   load: () => import(
@@ -324,16 +324,16 @@ _universalImport({
 "
 `;
 
-exports[`universal-import static import: static import 1`] = `
+exports[`better-import static import: static import 1`] = `
 "
 import(\\"./Foo\\")
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import _path from \\"path\\";
-import _universalImport from \\"babel-plugin-universal-import/universalImport\\";
+import _betterImport from \\"babel-plugin-better-import/universalImport\\";
 
-_universalImport({
+_betterImport({
   id: \\"./Foo\\",
   file: \\"currentFile.js\\",
   load: () => import(

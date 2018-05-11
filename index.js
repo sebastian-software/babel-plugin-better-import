@@ -1,31 +1,31 @@
-'use-strict'
+"use-strict"
 
-const { addDefault } = require('@babel/helper-module-imports')
+const { addDefault } = require("@babel/helper-module-imports")
 
-const visited = Symbol('visited')
+const visited = Symbol("visited")
 
 const IMPORT_UNIVERSAL_DEFAULT = {
-  id: Symbol('universalImportId'),
-  source: 'babel-plugin-universal-import/universalImport',
-  nameHint: 'universalImport'
+  id: Symbol("universalImportId"),
+  source: "babel-plugin-better-import/universalImport",
+  nameHint: "betterImport"
 }
 
 const IMPORT_PATH_DEFAULT = {
-  id: Symbol('pathId'),
-  source: 'path',
-  nameHint: 'path'
+  id: Symbol("pathId"),
+  source: "path",
+  nameHint: "path"
 }
 
 function getImportArgPath(p) {
-  return p.parentPath.get('arguments')[0]
+  return p.parentPath.get("arguments")[0]
 }
 
 function trimChunkNameBaseDir(baseDir) {
-  return baseDir.replace(/^[./]+|(\.js$)/g, '')
+  return baseDir.replace(/^[./]+|(\.js$)/g, "")
 }
 
 function prepareChunkNamePath(path) {
-  return path.replace(/\//g, '-')
+  return path.replace(/\//g, "-")
 }
 
 function getImport(p, { id, source, nameHint }) {
@@ -69,7 +69,7 @@ function getMagicCommentChunkName(importArgNode) {
 
   const baseDir = quasis[0].value.cooked
   const hasExpressions = expressions.length > 0
-  const chunkName = baseDir + (hasExpressions ? '[request]' : '')
+  const chunkName = baseDir + (hasExpressions ? "[request]" : "")
   return trimChunkNameBaseDir(chunkName)
 }
 
@@ -82,7 +82,7 @@ function getComponentId(t, importArgNode) {
     const id = expressions[i] && expressions[i].name
     str += id ? `${q}\${${id}}` : q
     return str
-  }, '')
+  }, "")
 }
 
 function existingMagicCommentChunkName(importArgNode) {
@@ -90,15 +90,14 @@ function existingMagicCommentChunkName(importArgNode) {
   if (
     leadingComments &&
     leadingComments.length &&
-    leadingComments[0].value.indexOf('webpackChunkName') !== -1
+    leadingComments[0].value.indexOf("webpackChunkName") !== -1
   ) {
     try {
       return leadingComments[0].value
-        .split('webpackChunkName:')[1]
-        .replace(/["']/g, '')
+        .split("webpackChunkName:")[1]
+        .replace(/["']/g, "")
         .trim()
-    }
-    catch (e) {
+    } catch (e) {
       return null
     }
   }
@@ -107,12 +106,12 @@ function existingMagicCommentChunkName(importArgNode) {
 
 function idOption(t, importArgNode) {
   const id = getComponentId(t, importArgNode)
-  return t.objectProperty(t.identifier('id'), t.stringLiteral(id))
+  return t.objectProperty(t.identifier("id"), t.stringLiteral(id))
 }
 
 function fileOption(t, p) {
   return t.objectProperty(
-    t.identifier('file'),
+    t.identifier("file"),
     t.stringLiteral(p.hub.file.opts.filename)
   )
 }
@@ -122,18 +121,18 @@ function loadOption(t, loadTemplate, p, importArgNode) {
   const generatedChunkName = getMagicCommentChunkName(importArgNode)
   const existingChunkName = t.existingChunkName
   const chunkName = existingChunkName || generatedChunkName
-  const trimmedChunkName = existingChunkName
-    ? t.stringLiteral(generatedChunkName)
-    : createTrimmedChunkName(t, importArgNode)
+  const trimmedChunkName = existingChunkName ?
+    t.stringLiteral(generatedChunkName) :
+    createTrimmedChunkName(t, importArgNode)
 
   delete argPath.node.leadingComments
-  argPath.addComment('leading', ` webpackChunkName: '${chunkName}' `)
+  argPath.addComment("leading", ` webpackChunkName: '${chunkName}' `)
 
   const load = loadTemplate({
     IMPORT: argPath.parent
   }).expression
 
-  return t.objectProperty(t.identifier('load'), load)
+  return t.objectProperty(t.identifier("load"), load)
 }
 
 function pathOption(t, pathTemplate, p, importArgNode) {
@@ -142,7 +141,7 @@ function pathOption(t, pathTemplate, p, importArgNode) {
     MODULE: importArgNode
   }).expression
 
-  return t.objectProperty(t.identifier('path'), path)
+  return t.objectProperty(t.identifier("path"), path)
 }
 
 function resolveOption(t, resolveTemplate, importArgNode) {
@@ -150,39 +149,39 @@ function resolveOption(t, resolveTemplate, importArgNode) {
     MODULE: importArgNode
   }).expression
 
-  return t.objectProperty(t.identifier('resolve'), resolve)
+  return t.objectProperty(t.identifier("resolve"), resolve)
 }
 
 function chunkNameOption(t, chunkNameTemplate, importArgNode) {
   const existingChunkName = t.existingChunkName
   const generatedChunk = createTrimmedChunkName(t, importArgNode)
-  const trimmedChunkName = existingChunkName
-    ? t.stringLiteral(existingChunkName)
-    : generatedChunk
+  const trimmedChunkName = existingChunkName ?
+    t.stringLiteral(existingChunkName) :
+    generatedChunk
 
   const chunkName = chunkNameTemplate({
     MODULE: trimmedChunkName
   }).expression
 
-  return t.objectProperty(t.identifier('chunkName'), chunkName)
+  return t.objectProperty(t.identifier("chunkName"), chunkName)
 }
 
 function checkForNestedChunkName(node) {
   const generatedChunkName = getMagicCommentChunkName(node)
   const isNested =
-    generatedChunkName.indexOf('[request]') === -1 &&
-    generatedChunkName.indexOf('/') > -1
+    generatedChunkName.indexOf("[request]") === -1 &&
+    generatedChunkName.indexOf("/") > -1
   return isNested && prepareChunkNamePath(generatedChunkName)
 }
 
-module.exports = function universalImportPlugin({ types: t, template }) {
-  const chunkNameTemplate = template('() => MODULE')
-  const pathTemplate = template('() => PATH.join(__dirname, MODULE)')
-  const resolveTemplate = template('() => require.resolveWeak(MODULE)')
-  const loadTemplate = template('() => IMPORT')
+module.exports = function betterImportPlugin({ types: t, template }) {
+  const chunkNameTemplate = template("() => MODULE")
+  const pathTemplate = template("() => PATH.join(__dirname, MODULE)")
+  const resolveTemplate = template("() => require.resolveWeak(MODULE)")
+  const loadTemplate = template("() => IMPORT")
 
   return {
-    name: 'universal-import',
+    name: "better-import",
     visitor: {
       Import(p) {
         if (p[visited]) return
@@ -210,15 +209,15 @@ module.exports = function universalImportPlugin({ types: t, template }) {
           return
         }
 
-        const opts = this.opts.babelServer
-          ? [
+        const opts = this.opts.babelServer ?
+          [
             idOption(t, importArgNode),
             fileOption(t, p),
             pathOption(t, pathTemplate, p, importArgNode),
             resolveOption(t, resolveTemplate, importArgNode),
             chunkNameOption(t, chunkNameTemplate, importArgNode)
-          ]
-          : [
+          ] :
+          [
             idOption(t, importArgNode),
             fileOption(t, p),
             loadOption(t, loadTemplate, p, importArgNode), // only when not on a babel-server
@@ -229,7 +228,7 @@ module.exports = function universalImportPlugin({ types: t, template }) {
 
         const options = t.objectExpression(opts)
 
-        const func = t.callExpression(universalImport, [options])
+        const func = t.callExpression(universalImport, [ options ])
         delete t.existingChunkName
         p.parentPath.replaceWith(func)
       }
