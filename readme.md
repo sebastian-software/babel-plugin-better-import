@@ -1,8 +1,4 @@
-<a href="https://gitter.im/Reactlandia/Lobby" target="_blank">
-  <img alt="Reactlandia Chat" src="https://s3-us-west-1.amazonaws.com/cdn.reactlandia.com/reactlandia-chat.png">
-</a>
-
-# babel-plugin-better-import
+# Babel Plugin Better Import
 
 <p align="center">
   <a href="https://www.npmjs.com/package/babel-plugin-better-import">
@@ -37,7 +33,7 @@
 ## Installation
 
 ```
-yarn add babel-plugin-better-import
+npm install babel-plugin-better-import
 ```
 
 *.babelrc:*
@@ -107,10 +103,11 @@ The targeted **use-case** for all this is dynamic imports where you can pass a `
 
 ## License
 
-[Apache License Version 2.0, January 2004](license)
+[MIT](license)
 
 ## Copyright
 
 <img src="https://cdn.rawgit.com/sebastian-software/sebastian-software-brand/3d93746f/sebastiansoftware-en.svg" alt="Sebastian Software GmbH Logo" width="250" height="200"/>
 
-Copyright 2017-2018<br/>[Sebastian Software GmbH](http://www.sebastian-software.de)
+Copyright 2018<br/>[Sebastian Software GmbH](http://www.sebastian-software.de)
+Copyright 2017-2018<br/>[James Gillmore](mailto:james@faceyspacey.com)
