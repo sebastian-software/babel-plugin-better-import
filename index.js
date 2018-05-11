@@ -17,8 +17,8 @@ const IMPORT_PATH_DEFAULT = {
   nameHint: "path"
 }
 
-function getImportArgPath(p) {
-  return p.parentPath.get("arguments")[0]
+function getImportArgPath(path) {
+  return path.parentPath.get("arguments")[0]
 }
 
 function trimChunkNameBaseDir(baseDir) {
@@ -120,11 +120,11 @@ function fileOption(types, path) {
 function loadOption(types, loadTemplate, path, importArgNode) {
   const argPath = getImportArgPath(path)
   const generatedChunkName = getMagicCommentChunkName(importArgNode)
-  const existingChunkName = t.existingChunkName
+  const existingChunkName = types.existingChunkName
   const chunkName = existingChunkName || generatedChunkName
   const trimmedChunkName = existingChunkName ?
-    t.stringLiteral(generatedChunkName) :
-    createTrimmedChunkName(t, importArgNode)
+    types.stringLiteral(generatedChunkName) :
+    createTrimmedChunkName(types, importArgNode)
 
   delete argPath.node.leadingComments
   argPath.addComment("leading", ` webpackChunkName: '${chunkName}' `)
@@ -133,16 +133,16 @@ function loadOption(types, loadTemplate, path, importArgNode) {
     IMPORT: argPath.parent
   }).expression
 
-  return t.objectProperty(t.identifier("load"), load)
+  return types.objectProperty(types.identifier("load"), load)
 }
 
 function pathOption(types, pathTemplate, path, importArgNode) {
-  const path = pathTemplate({
+  const pathResult = pathTemplate({
     PATH: getImport(path, IMPORT_PATH_DEFAULT),
     MODULE: importArgNode
   }).expression
 
-  return types.objectProperty(types.identifier("path"), path)
+  return types.objectProperty(types.identifier("path"), pathResult)
 }
 
 function resolveOption(types, resolveTemplate, importArgNode) {
