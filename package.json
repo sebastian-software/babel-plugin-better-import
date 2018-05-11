@@ -21,13 +21,15 @@
     "cm": "git-cz",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
+  "dependencies": {
+    "@babel/helper-module-imports": "^7.0.0-beta.46"
+  },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.46",
     "@babel/core": "^7.0.0-beta.46",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.46",
-    "@babel/preset-es2015": "^7.0.0-beta.46",
+    "@babel/preset-env": "^7.0.0-beta.46",
     "@babel/preset-react": "^7.0.0-beta.46",
-    "@babel/preset-stage-2": "^7.0.0-beta.46",
     "babel-core": "^7.0.0-0",
     "babel-eslint": "^8.2.3",
     "babel-jest": "^22.4.3",
@@ -41,7 +43,6 @@
     "lint-staged": "^7.1.0",
     "prettier": "^1.12.1",
     "rimraf": "^2.6.2",
-    "semantic-release": "^15.4.0",
     "travis-github-status": "^1.6.3"
   },
   "config": {
@@ -57,8 +58,5 @@
         "git add"
       ]
     }
-  },
-  "dependencies": {
-    "@babel/helper-module-imports": "^7.0.0-beta.46"
   }
 }
