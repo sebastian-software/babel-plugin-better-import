@@ -11,7 +11,11 @@
     "url": "https://github.com/sebastian-software/babel-plugin-better-import/issues"
   },
   "homepage": "https://github.com/sebastian-software/babel-plugin-better-import#readme",
-  "author": "James Gillmore james@sebastian-software.com>",
+  "author": {
+    "name": "Sebastian Software",
+    "email": "s.werner@sebastian-software.de",
+    "url": "https://www.sebastian-software.de"
+  },
   "license": "MIT",
   "scripts": {
     "test": "jest",
@@ -22,6 +26,11 @@
     "release": "git push && release-it --github.release --npm.publish --non-interactive",
     "release:minor": "git push && release-it --github.release --npm.publish --non-interactive --increment minor",
     "release:major": "git push && release-it --github.release --npm.publish --non-interactive --increment major"
+  },
+  "engines": {
+    "node": ">=6.0.0",
+    "yarn": ">=1.0.0",
+    "npm": ">=6.0.0"
   },
   "files": [
     "*.js"
