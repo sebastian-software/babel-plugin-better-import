@@ -16,47 +16,6 @@ async ({
 "
 `;
 
-exports[`better-import babelServer: true: babelServer: true 1`] = `
-"
-import(\\"./Foo\\")
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
-
-_betterImport({
-  id: \\"./Foo\\",
-  file: \\"currentFile.js\\",
-  path: () => _path.join(__dirname, \\"./Foo\\"),
-  resolve: () => require.resolveWeak(\\"./Foo\\"),
-  chunkName: () => \\"Foo\\"
-});
-"
-`;
-
-exports[`better-import disableWarnings: true: disableWarnings: true 1`] = `
-"
-import(\\"./Foo\\")
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-import _path from \\"path\\";
-import _betterImport from \\"babel-plugin-better-import/universalImport\\";
-
-_betterImport({
-  id: \\"./Foo\\",
-  file: \\"currentFile.js\\",
-  load: () => import(
-  /* webpackChunkName: 'Foo' */
-  \\"./Foo\\"),
-  path: () => _path.join(__dirname, \\"./Foo\\"),
-  resolve: () => require.resolveWeak(\\"./Foo\\"),
-  chunkName: () => \\"Foo\\"
-});
-"
-`;
-
 exports[`better-import dynamic import (string template + relative paths): dynamic import (string template + relative paths) 1`] = `
 "
 import(\`../../base/\${page}\`)
