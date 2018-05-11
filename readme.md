@@ -1,34 +1,19 @@
-# Babel Plugin Better Import
+# Babel Plugin Better Import<br/>[![Sponsored by][sponsor-img]][sponsor] [![Version][npm-version-img]][npm] [![Downloads][npm-downloads-img]][npm] [![Build Status Unix][travis-img]][travis] [![Build Status Windows][appveyor-img]][appveyor] [![Dependencies][deps-img]][deps]
 
-<p align="center">
-  <a href="https://www.npmjs.com/package/babel-plugin-better-import">
-    <img src="https://img.shields.io/npm/v/babel-plugin-better-import.svg" alt="Version" />
-  </a>
+[sponsor-img]: https://img.shields.io/badge/Sponsored%20by-Sebastian%20Software-692446.svg
+[sponsor]: https://www.sebastian-software.de
+[deps]: https://david-dm.org/sebastian-software/babel-plugin-better-import
+[deps-img]: https://david-dm.org/sebastian-software/babel-plugin-better-import.svg
+[npm]: https://www.npmjs.com/package/babel-plugin-better-import
+[npm-downloads-img]: https://img.shields.io/npm/dm/babel-plugin-better-import.svg
+[npm-version-img]: https://img.shields.io/npm/v/babel-plugin-better-import.svg
+[travis-img]: https://img.shields.io/travis/sebastian-software/babel-plugin-better-import/master.svg?branch=master&label=unix%20build
+[appveyor-img]: https://img.shields.io/appveyor/ci/swernerx/babel-plugin-better-import/master.svg?label=windows%20build
+[travis]: https://travis-ci.org/sebastian-software/babel-plugin-better-import
+[appveyor]: https://ci.appveyor.com/project/swernerx/babel-plugin-better-import/branch/master
 
-  <a href="https://travis-ci.org/sebastian-software/babel-plugin-better-import">
-    <img src="https://travis-ci.org/sebastian-software/babel-plugin-better-import.svg?branch=master" alt="Build Status" />
-  </a>
+Makes `import()` widely useable. Automagically. Part of the Edge Platform.
 
-  <a href="https://lima.codeclimate.com/github/sebastian-software/babel-plugin-better-import/coverage">
-    <img src="https://lima.codeclimate.com/github/sebastian-software/babel-plugin-better-import/badges/coverage.svg" alt="Coverage Status"/>
-  </a>
-
-  <a href="https://greenkeeper.io">
-    <img src="https://badges.greenkeeper.io/sebastian-software/babel-plugin-better-import.svg" alt="Green Keeper" />
-  </a>
-
-  <a href="https://lima.codeclimate.com/github/sebastian-software/babel-plugin-better-import">
-    <img src="https://lima.codeclimate.com/github/sebastian-software/babel-plugin-better-import/badges/gpa.svg" alt="GPA" />
-  </a>
-
-  <a href="https://www.npmjs.com/package/babel-plugin-better-import">
-    <img src="https://img.shields.io/npm/dt/babel-plugin-better-import.svg" alt="Downloads" />
-  </a>
-
-  <a href="https://www.npmjs.com/package/babel-plugin-better-import">
-    <img src="https://img.shields.io/npm/l/babel-plugin-better-import.svg" alt="License" />
-  </a>
-</p>
 
 ## Installation
 
