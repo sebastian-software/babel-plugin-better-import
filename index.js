@@ -7,7 +7,7 @@ const visited = Symbol("visited")
 
 const IMPORT_BETTER_DEFAULT = {
   id: Symbol("betterImportId"),
-  source: "babel-plugin-better-import/universalImport",
+  source: "babel-plugin-better-import/betterImport",
   nameHint: "betterImport"
 }
 
