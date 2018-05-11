@@ -22,7 +22,6 @@ engines:
 ratings:
    paths:
    - "index.js"
-   - "importCss.js"
    - "universalImport.js"
 
 exclude_paths:
