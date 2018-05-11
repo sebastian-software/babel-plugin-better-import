@@ -1,7 +1,10 @@
+/* eslint-disable prefer-arrow-callback */
 /* eslint-disable filenames/match-exported */
+/* eslint-disable immutable/no-mutation */
 "use-strict"
 
 const { addDefault } = require("@babel/helper-module-imports")
+const JSON5 = require("json5")
 
 const visited = Symbol("visited")
 
@@ -66,17 +69,22 @@ function prepareQuasi(quasi) {
 
 function getMagicCommentChunkName(importArgNode) {
   const { quasis, expressions } = importArgNode
-  if (!quasis) return trimChunkNameBaseDir(importArgNode.value)
+  if (!quasis) {
+    return trimChunkNameBaseDir(importArgNode.value)
+  }
 
   const baseDir = quasis[0].value.cooked
   const hasExpressions = expressions.length > 0
   const chunkName = baseDir + (hasExpressions ? "[request]" : "")
+
   return trimChunkNameBaseDir(chunkName)
 }
 
 function getComponentId(types, importArgNode) {
   const { quasis, expressions } = importArgNode
-  if (!quasis) return importArgNode.value
+  if (!quasis) {
+    return importArgNode.value
+  }
 
   return quasis.reduce((str, quasi, i) => {
     const q = quasi.value.cooked
@@ -88,20 +96,39 @@ function getComponentId(types, importArgNode) {
 
 function existingMagicCommentChunkName(importArgNode) {
   const { leadingComments } = importArgNode
-  if (
-    leadingComments &&
-    leadingComments.length &&
-    leadingComments[0].value.indexOf("webpackChunkName") !== -1
-  ) {
-    try {
-      return leadingComments[0].value
-        .split("webpackChunkName:")[1]
-        .replace(/["']/g, "")
-        .trim()
-    } catch (error) {
-      return null
-    }
+
+  if (leadingComments) {
+    const data = leadingComments
+      .map(function process(comment, index) {
+        if (comment.value.indexOf("webpackChunkName") !== -1) {
+          try {
+            const parsed = JSON5.parse(`{${  comment.value  }}`)
+            const value = parsed.webpackChunkName
+            if (value) {
+              // Cleanup comment from old chunk name
+              delete parsed.webpackChunkName
+              comment.value = JSON5.stringify(parsed).slice(1, -1)
+
+              // Remove empty comments
+              if (comment.value === "") {
+                leadingComments.splice(index, 1)
+              }
+
+              return value
+            }
+          } catch (error) {
+            return null
+          }
+        }
+
+        return null
+      })
+      .filter(Boolean)
+
+    // Last entry wins
+    return data.pop()
   }
+
   return null
 }
 
@@ -122,11 +149,7 @@ function loadOption(types, loadTemplate, path, importArgNode) {
   const generatedChunkName = getMagicCommentChunkName(importArgNode)
   const existingChunkName = types.existingChunkName
   const chunkName = existingChunkName || generatedChunkName
-  const trimmedChunkName = existingChunkName ?
-    types.stringLiteral(generatedChunkName) :
-    createTrimmedChunkName(types, importArgNode)
 
-  delete argPath.node.leadingComments
   argPath.addComment("leading", ` webpackChunkName: '${chunkName}' `)
 
   const load = loadTemplate({
@@ -185,7 +208,9 @@ module.exports = function betterImportPlugin({ types, template }) {
     name: "better-import",
     visitor: {
       Import(path) {
-        if (path[visited]) return
+        if (path[visited]) {
+          return
+        }
         path[visited] = true
 
         const importArgNode = getImportArgPath(path).node
@@ -216,7 +241,7 @@ module.exports = function betterImportPlugin({ types, template }) {
         const opts = [
           idOption(types, importArgNode),
           fileOption(types, path),
-          loadOption(types, loadTemplate, path, importArgNode), // only when not on a babel-server
+          loadOption(types, loadTemplate, path, importArgNode),
           pathOption(types, pathTemplate, path, importArgNode),
           resolveOption(types, resolveTemplate, importArgNode),
           chunkNameOption(types, chunkNameTemplate, importArgNode)
