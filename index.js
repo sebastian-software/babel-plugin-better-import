@@ -175,7 +175,7 @@ function checkForNestedChunkName(node) {
   return isNested && prepareChunkNamePath(generatedChunkName)
 }
 
-module.exports = function betterImportPlugin({ types: t, template }) {
+module.exports = function betterImportPlugin({ types, template }) {
   const chunkNameTemplate = template("() => MODULE")
   const pathTemplate = template("() => PATH.join(__dirname, MODULE)")
   const resolveTemplate = template("() => require.resolveWeak(MODULE)")
@@ -184,46 +184,49 @@ module.exports = function betterImportPlugin({ types: t, template }) {
   return {
     name: "better-import",
     visitor: {
-      Import(p) {
-        if (p[visited]) return
-        p[visited] = true
+      Import(path) {
+        if (path[visited]) return
+        path[visited] = true
 
-        const importArgNode = getImportArgPath(p).node
-        t.existingChunkName = existingMagicCommentChunkName(importArgNode)
+        const importArgNode = getImportArgPath(path).node
+        types.existingChunkName = existingMagicCommentChunkName(importArgNode)
+
         // no existing chunkname, no problem - we will reuse that for fixing nested chunk names
-        if (!t.existingChunkName) {
-          t.existingChunkName = checkForNestedChunkName(importArgNode)
+        if (!types.existingChunkName) {
+          types.existingChunkName = checkForNestedChunkName(importArgNode)
         }
-        const universalImport = getImport(p, IMPORT_BETTER_DEFAULT)
+        const universalImport = getImport(path, IMPORT_BETTER_DEFAULT)
 
         // if being used in an await statement, return load() promise
         if (
-          p.parentPath.parentPath.isYieldExpression() || // await transformed already
-          t.isAwaitExpression(p.parentPath.parentPath.node) // await not transformed already
+          // await transformed already
+          path.parentPath.parentPath.isYieldExpression() ||
+          // await not transformed already
+          types.isAwaitExpression(path.parentPath.parentPath.node)
         ) {
-          const func = t.callExpression(universalImport, [
-            loadOption(t, loadTemplate, p, importArgNode).value,
-            t.booleanLiteral(false)
+          const func = types.callExpression(universalImport, [
+            loadOption(types, loadTemplate, path, importArgNode).value,
+            types.booleanLiteral(false)
           ])
 
-          p.parentPath.replaceWith(func)
+          path.parentPath.replaceWith(func)
           return
         }
 
         const opts = [
-          idOption(t, importArgNode),
-          fileOption(t, p),
-          loadOption(t, loadTemplate, p, importArgNode), // only when not on a babel-server
-          pathOption(t, pathTemplate, p, importArgNode),
-          resolveOption(t, resolveTemplate, importArgNode),
-          chunkNameOption(t, chunkNameTemplate, importArgNode)
+          idOption(types, importArgNode),
+          fileOption(types, path),
+          loadOption(types, loadTemplate, path, importArgNode), // only when not on a babel-server
+          pathOption(types, pathTemplate, path, importArgNode),
+          resolveOption(types, resolveTemplate, importArgNode),
+          chunkNameOption(types, chunkNameTemplate, importArgNode)
         ]
 
-        const options = t.objectExpression(opts)
+        const options = types.objectExpression(opts)
 
-        const func = t.callExpression(universalImport, [ options ])
-        delete t.existingChunkName
-        p.parentPath.replaceWith(func)
+        const func = types.callExpression(universalImport, [ options ])
+        delete types.existingChunkName
+        path.parentPath.replaceWith(func)
       }
     }
   }
